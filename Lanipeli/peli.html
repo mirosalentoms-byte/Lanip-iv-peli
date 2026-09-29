@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lani peli</title>
+</head>
+<body>
+
+<h1 id="status">Pisteet: <span id="points">0</span></h1>
+
+<button onclick="clickButton()">Klikkaa!</button>
+
+<h2>Upgrade</h2>
+<button onclick="buyUpgrade()">Osta +1 per klikki - Hinta: <span id="cost">10</span></button>
+
+<script>
+
+let points = 0;
+let perClick = 1;
+let cost = 10;
+let gameOver = false;
+
+//  60 sekunnin ajastin
+setTimeout(() => {
+    gameOver = true;
+    points = 0;
+    perClick = 1;
+    cost = 10;
+
+    document.getElementById("status").innerText = "Game Over!";
+    updateUI();
+}, 60000);
+
+function clickButton() {
+    if (gameOver) return; // estää klikkauksen lopussa
+    points += perClick;
+    updateUI();
+}
+
+function buyUpgrade() {
+    if (gameOver) return; // estää upgraden lopussa
+    if (points >= cost) {
+        points -= cost;
+        perClick += 1;
+        cost = Math.floor(cost * 1.5);
+        updateUI();
+    }
+}
+
+function updateUI() {
+    document.getElementById("points").innerText = points;
+    document.getElementById("cost").innerText = cost;
+}
+
+</script>
+
+</body>
+</html>
